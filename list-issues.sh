@@ -10,15 +10,24 @@ token=$token
 
 repo_owner=$1
 repo_name=$2
-function github-api-get {
+function github_api_get {
   loacl endpoint="$1"
-  url= ${api_utl/${endpoint}
+  local url=${api_utl}/${endpoint}
 
-  curl -r -u ${username$
+  curl -s -u "${username}:${token}" "url"
+  #collaborators="$(github_api_get "$endpoint" | jq -r '.[] | select(.permissions.pull == true) | .login')"
 }
-function get-issues {
-  local endpoint = "repos/${repo_owner}/${repo_name}/issues"
-  issues= "$(github-api-get "$endpoint")"
+function get_issues {
+  local endpoint="repos/${repo_owner}/${repo_name}/issues"
+  issues="$(github_api_get "$endpoint")"
+  #| jq -r .[] | select(.permissions.pull == true) | .login
+  if [[ -z "$issues"]]; then
+    echo "no issues in ${repo_name}."
+  else 
+    echo "issues in ${repo_name} are:"
+    echo "${issues}"
+  fi
 }
-echo "listing issues in $2"
-get-issues
+#main script
+echo "listing issues in ${repo_owner}/${repo_name}"
+get_issues
