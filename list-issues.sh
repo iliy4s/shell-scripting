@@ -11,7 +11,7 @@ token=$token
 repo_owner=$1
 repo_name=$2
 function github_api_get {
-  loacl endpoint="$1"
+  local endpoint="$1"
   local url=${api_utl}/${endpoint}
 
   curl -s -u "${username}:${token}" "url"
