@@ -21,7 +21,7 @@ function get_issues {
   local endpoint="repos/${repo_owner}/${repo_name}/issues"
   issues="$(github_api_get "$endpoint")"
   #| jq -r .[] | select(.permissions.pull == true) | .login
-  if [[ -z "$issues"]]; then
+  if [[ -z "$issues" ]]; then
     echo "no issues in ${repo_name}."
   else 
     echo "issues in ${repo_name} are:"
