@@ -18,7 +18,7 @@ function github_api_get {
 }
 function get_issues {
   local endpoint="repos/${repo_owner}/${repo_name}/issues"
-  issues="$(github_api_get "$endpoint"| jq -r .[] | select(.permissions.pull == true) | .login)"
+  issues="$(github_api_get "$endpoint")"
   
   if [[ -z "$issues" ]]; then
     echo "no issues in ${repo_name}."
