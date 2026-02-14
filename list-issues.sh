@@ -2,7 +2,7 @@
 ################################################
 # author : iliyas
 # date : 8-2-26
-# content : bash script to list collabrator of repo 
+# content : bash script to list issues in repo 
 ################################################
 api_url="https://api.github.com"
 username=${username}
@@ -17,17 +17,17 @@ function github_api_get {
   curl -s -u "${username}:${token}" "$url"
   #collaborators="$(github_api_get "$endpoint" | jq -r '.[] | select(.permissions.pull == true) | .login')"
 }
-function get_collabrator {
+function get_issues {
   local endpoint="repos/${repo_owner}/${repo_name}/issues"
-  collabrator="$(github_api_get "$endpoint")"
+  issues="$(github_api_get "$endpoint")"
   #| jq -r .[] | select(.permissions.pull == true) | .login
-  if [[ -z "$collabrator" ]]; then
+  if [[ -z "$issues" ]]; then
     echo "no issues in ${repo_name}."
   else 
     echo "issues in ${repo_name} are:"
-    echo "${collabrator}"
+    echo "${issues}"
   fi
 }
 #main script
 echo "listing issues in ${repo_owner}/${repo_name}"
-get_collabrator
+get_issues
