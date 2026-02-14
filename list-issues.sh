@@ -15,12 +15,11 @@ function github_api_get {
   local url=${api_url}/${endpoint}
 
   curl -s -u "${username}:${token}" "$url"
-  #collaborators="$(github_api_get "$endpoint" | jq -r '.[] | select(.permissions.pull == true) | .login')"
 }
 function get_issues {
   local endpoint="repos/${repo_owner}/${repo_name}/issues"
-  issues="$(github_api_get "$endpoint")"
-  #| jq -r .[] | select(.permissions.pull == true) | .login
+  issues="$(github_api_get "$endpoint"| jq -r .[] | select(.permissions.pull == true) | .login)"
+  
   if [[ -z "$issues" ]]; then
     echo "no issues in ${repo_name}."
   else 
